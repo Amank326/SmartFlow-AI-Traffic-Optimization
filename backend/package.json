@@ -1,0 +1,32 @@
+{
+  "name": "smartflow-backend",
+  "version": "1.0.0",
+  "description": "SmartFlow AI Traffic System Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "traffic",
+    "optimization",
+    "api",
+    "ai"
+  ],
+  "author": "SmartFlow Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "optionalDependencies": {
+    "express-rate-limit": "^6.0.0",
+    "morgan": "^1.10.0",
+    "helmet": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
+

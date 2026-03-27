@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFlow - AI Traffic Signal Optimization</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Enhanced Header -->
+        <header class="header">
+            <div class="header-top">
+                <div>
+                    <h1 class="main-title">🚦 SmartFlow AI – Adaptive Traffic Intelligence System</h1>
+                    <p class="main-subtitle">Real-Time Traffic Optimization using AI</p>
+                </div>
+                <div class="header-user-section">
+                    <span class="user-greeting" id="userGreeting">Welcome, User</span>
+                    <button class="logout-btn" onclick="logoutFromDashboard()" title="Back to Home">🏠 Home</button>
+                </div>
+            </div>
+            
+            <div class="status-indicators" role="region" aria-label="System status indicators">
+                <div class="indicator-item">
+                    <span class="indicator-label">AI Status:</span>
+                    <span class="indicator-value ai-active" aria-live="polite">🤖 AI Active</span>
+                </div>
+                <div class="indicator-item">
+                    <span class="indicator-label">Data Source:</span>
+                    <span class="indicator-value" id="apiStatus" aria-live="polite">🌐 Live Traffic Data from Backend</span>
+                </div>
+                <div class="indicator-item">
+                    <span class="indicator-label">System:</span>
+                    <span class="indicator-value running-indicator" id="systemStatus" aria-live="polite"><span class="pulse-dot"></span> System Ready</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Enhanced Control Panel -->
+        <div class="control-panel">
+            <div class="stats" role="region" aria-label="System statistics">
+                <div class="stat-item">
+                    <span class="stat-label">Total Vehicles:</span>
+                    <span class="stat-value" id="totalVehicles" aria-live="polite">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Avg Wait Time:</span>
+                    <span class="stat-value" id="avgWaitTime" aria-live="polite">0s</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Throughput:</span>
+                    <span class="stat-value" id="throughput" aria-live="polite">0 v/min</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Efficiency:</span>
+                    <span class="stat-value" id="efficiency" aria-live="polite">+30%</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="startBtn" class="btn btn-start" aria-label="Start the traffic signal system">▶ Start System</button>
+                <button id="stopBtn" class="btn btn-stop" disabled aria-label="Stop the traffic signal system">⏹ Stop System</button>
+                <button id="resetBtn" class="btn btn-reset" aria-label="Reset all statistics and vehicle positions">↻ Reset</button>
+            </div>
+        </div>
+
+        <!-- Active Lane & Green Time Display -->
+        <div class="active-info-panel" aria-label="Active lane and green time information">
+            <div class="info-box">
+                <span class="info-label">Current Active Lane:</span>
+                <span class="info-value active-lane-display" id="activeLaneDisplay" aria-live="polite">--</span>
+            </div>
+            <div class="info-box">
+                <span class="info-label">Current Green Time:</span>
+                <span class="info-value green-time-display" id="greenTimeDisplay" aria-live="polite">-- sec</span>
+            </div>
+            <div class="info-box">
+                <span class="info-label">Avg Wait Reduced:</span>
+                <span class="info-value improvement-display">↓ 35%</span>
+            </div>
+        </div>
+
+        <!-- Advanced Features Panel -->
+        <div class="features-panel">
+            <!-- Emergency Mode -->
+            <div class="feature-section">
+                <div class="feature-header">🚨 Emergency Mode</div>
+                <div class="emergency-controls">
+                    <select id="emergencyLane" class="emergency-select" aria-label="Select lane for emergency mode">
+                        <option value="">Select Lane...</option>
+                        <option value="top">North (↑)</option>
+                        <option value="bottom">South (↓)</option>
+                        <option value="left">West (←)</option>
+                        <option value="right">East (→)</option>
+                    </select>
+                    <button id="emergencyBtn" class="btn btn-emergency" disabled aria-label="Activate emergency mode for selected lane">Activate Emergency</button>
+                    <span class="emergency-status" id="emergencyStatus" aria-live="polite" aria-atomic="true"></span>
+                </div>
+            </div>
+
+            <!-- Night Mode -->
+            <div class="feature-section">
+                <div class="feature-header">🌙 Night Mode</div>
+                <div class="night-controls">
+                    <button id="nightModeBtn" class="btn btn-toggle" aria-label="Toggle night mode - skips empty lanes for efficiency" aria-pressed="false">Night Mode: OFF</button>
+                    <small>Skips empty lanes for efficiency</small>
+                </div>
+            </div>
+
+            <!-- Smart AI Mode -->
+            <div class="feature-section">
+                <div class="feature-header">🧠 Smart AI Mode</div>
+                <div class="smart-ai-controls">
+                    <button id="smartAIBtn" class="btn btn-toggle" aria-label="Toggle smart AI mode - enables predictive traffic optimization" aria-pressed="false">Smart AI Mode: OFF</button>
+                    <small>Predictive + Priority-based system</small>
+                    <div class="predictive-status-display">
+                        <span id="predictiveStatus" class="status-badge">⚪ Adaptive Mode Only</span>
+                        <span id="trendIndicator" class="trend-badge"></span>
+                    </div>
+                    <div class="efficiency-display">
+                        <span class="efficiency-label">Efficiency Gain:</span>
+                        <span class="efficiency-value" id="efficiencyValue">+0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Dashboard -->
+            <div class="feature-section">
+                <div class="feature-header">📊 Dashboard</div>
+                <div class="dashboard-grid">
+                    <div class="dashboard-item">
+                        <span class="dashboard-label">Cars Waiting:</span>
+                        <span class="dashboard-value" id="carsWaiting">0</span>
+                    </div>
+                    <div class="dashboard-item">
+                        <span class="dashboard-label">Cars Passed:</span>
+                        <span class="dashboard-value" id="carsPassed">0</span>
+                    </div>
+                    <div class="dashboard-item">
+                        <span class="dashboard-label">Movement:</span>
+                        <span class="dashboard-value" id="movementStatus">⏸️ Waiting for green</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adaptive AI Info Panel -->
+        <div class="ai-panel">
+            <div class="ai-header">🤖 Adaptive Signal AI - Per-Direction Green Times</div>
+            <div class="ai-content">
+                <!-- Per-Direction Timings -->
+                <div class="directions-grid">
+                    <div class="direction-timing-card north-card">
+                        <div class="direction-label">NORTH ⬆️</div>
+                        <div class="vehicle-count" id="northCount">0 cars</div>
+                        <div class="green-time-display">
+                            <span class="green-time-value" id="northGreenTime">0s</span>
+                            <span class="green-time-label">Green</span>
+                        </div>
+                        <div class="priority-indicator" id="northPriority"></div>
+                    </div>
+                    <div class="direction-timing-card south-card">
+                        <div class="direction-label">SOUTH ⬇️</div>
+                        <div class="vehicle-count" id="southCount">0 cars</div>
+                        <div class="green-time-display">
+                            <span class="green-time-value" id="southGreenTime">0s</span>
+                            <span class="green-time-label">Green</span>
+                        </div>
+                        <div class="priority-indicator" id="southPriority"></div>
+                    </div>
+                    <div class="direction-timing-card east-card">
+                        <div class="direction-label">EAST ➡️</div>
+                        <div class="vehicle-count" id="eastCount">0 cars</div>
+                        <div class="green-time-display">
+                            <span class="green-time-value" id="eastGreenTime">0s</span>
+                            <span class="green-time-label">Green</span>
+                        </div>
+                        <div class="priority-indicator" id="eastPriority"></div>
+                    </div>
+                    <div class="direction-timing-card west-card">
+                        <div class="direction-label">WEST ⬅️</div>
+                        <div class="vehicle-count" id="westCount">0 cars</div>
+                        <div class="green-time-display">
+                            <span class="green-time-value" id="westGreenTime">0s</span>
+                            <span class="green-time-label">Green</span>
+                        </div>
+                        <div class="priority-indicator" id="westPriority"></div>
+                    </div>
+                </div>
+
+                <!-- Phase Timings -->
+                <div class="phase-timings">
+                    <div class="phase-item ns-phase">
+                        <span class="phase-label">NS Phase:</span>
+                        <span class="phase-value" id="nsPhaseGreen">0s</span>
+                    </div>
+                    <div class="phase-item ew-phase">
+                        <span class="phase-label">EW Phase:</span>
+                        <span class="phase-value" id="ewPhaseGreen">0s</span>
+                    </div>
+                </div>
+
+                <div class="ai-legend">
+                    <small>⭐ Highest priority lane is highlighted | Green time = (lane cars / total cars) × 60s (min: 5s)</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics & Reports Panel -->
+        <div class="analytics-panel">
+            <div class="analytics-header">📊 Real-Time Analytics & Performance Metrics</div>
+            <div class="analytics-content">
+                <div class="analytics-grid">
+                    <!-- Performance Metrics -->
+                    <div class="analytic-card">
+                        <div class="card-title">🎯 System Efficiency</div>
+                        <div class="metric-display">
+                            <span class="metric-value" id="systemEfficiency">--%</span>
+                            <span class="metric-label">Overall</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-fill efficiency-fill" id="efficiencyBar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Average Wait Time -->
+                    <div class="analytic-card">
+                        <div class="card-title">⏱️ Avg Wait Time</div>
+                        <div class="metric-display">
+                            <span class="metric-value" id="avgWaitDisplay">0s</span>
+                            <span class="metric-label">All Directions</span>
+                        </div>
+                    </div>
+
+                    <!-- Traffic Flow Rate -->
+                    <div class="analytic-card">
+                        <div class="card-title">🚗 Traffic Flow</div>
+                        <div class="metric-display">
+                            <span class="metric-value" id="flowRate">0</span>
+                            <span class="metric-label">v/minute</span>
+                        </div>
+                    </div>
+
+                    <!-- Congestion Level -->
+                    <div class="analytic-card">
+                        <div class="card-title">🚨 Congestion Level</div>
+                        <div class="metric-display">
+                            <span class="metric-value congestion-badge" id="congestionBadge">—</span>
+                            <span class="metric-label">Current</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Chart Area -->
+                <div class="chart-section">
+                    <div class="chart-title">📈 Vehicles Per Direction (Last 5 readings)</div>
+                    <div class="mini-charts">
+                        <div class="direction-chart">
+                            <span class="direction-name">North</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar north-bar" id="chartNorth" style="height: 0%"></div>
+                            </div>
+                            <span class="chart-value" id="northChartValue">0</span>
+                        </div>
+                        <div class="direction-chart">
+                            <span class="direction-name">South</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar south-bar" id="chartSouth" style="height: 0%"></div>
+                            </div>
+                            <span class="chart-value" id="southChartValue">0</span>
+                        </div>
+                        <div class="direction-chart">
+                            <span class="direction-name">East</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar east-bar" id="chartEast" style="height: 0%"></div>
+                            </div>
+                            <span class="chart-value" id="eastChartValue">0</span>
+                        </div>
+                        <div class="direction-chart">
+                            <span class="direction-name">West</span>
+                            <div class="chart-bar-container">
+                                <div class="chart-bar west-bar" id="chartWest" style="height: 0%"></div>
+                            </div>
+                            <span class="chart-value" id="westChartValue">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Report -->
+                <div class="report-section">
+                    <div class="report-title">📋 Session Report</div>
+                    <div class="report-grid">
+                        <div class="report-item">
+                            <span class="report-label">Session Duration:</span>
+                            <span class="report-value" id="sessionDuration">00:00</span>
+                        </div>
+                        <div class="report-item">
+                            <span class="report-label">Total Vehicles Processed:</span>
+                            <span class="report-value" id="totalProcessed">0</span>
+                        </div>
+                        <div class="report-item">
+                            <span class="report-label">AI Mode Improvement:</span>
+                            <span class="report-value" id="aiImprovement">+0%</span>
+                        </div>
+                        <div class="report-item">
+                            <span class="report-label">Peak Congestion:</span>
+                            <span class="report-value" id="peakCongestion">—</span>
+                        </div>
+                    </div>
+                    <button id="exportDataBtn" class="btn btn-export" aria-label="Export analytics data as JSON">💾 Export Data</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Intersection Container -->
+        <div class="intersection-wrapper" role="region" aria-label="Traffic intersection with four directions and signal lights">
+            <div class="intersection" aria-label="Interactive traffic intersection visualization">
+                <!-- TOP (North) Direction -->
+                <div class="direction top">
+                    <div class="road road-vertical">
+                        <div class="lane lane-1">
+                            <div class="vehicles-container" id="topLane1"></div>
+                        </div>
+                        <div class="lane lane-2">
+                            <div class="vehicles-container" id="topLane2"></div>
+                        </div>
+                    </div>
+                    <div class="signal-container">
+                        <div class="traffic-signal" id="signalTop">
+                            <div class="signal red"></div>
+                            <div class="signal yellow"></div>
+                            <div class="signal green"></div>
+                        </div>
+                        <div class="signal-label">NORTH</div>
+                        <div class="signal-timer" id="timerTop">0s</div>
+                    </div>
+                </div>
+
+                <!-- LEFT (West) Direction -->
+                <div class="direction left">
+                    <div class="signal-container">
+                        <div class="traffic-signal" id="signalLeft">
+                            <div class="signal red"></div>
+                            <div class="signal yellow"></div>
+                            <div class="signal green"></div>
+                        </div>
+                        <div class="signal-label">WEST</div>
+                        <div class="signal-timer" id="timerLeft">0s</div>
+                    </div>
+                    <div class="road road-horizontal">
+                        <div class="lane lane-1">
+                            <div class="vehicles-container" id="leftLane1"></div>
+                        </div>
+                        <div class="lane lane-2">
+                            <div class="vehicles-container" id="leftLane2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CENTER (Intersection Core) -->
+                <div class="center-box">
+                    <div class="center-content">
+                        <span class="center-text">INTERSECTION</span>
+                    </div>
+                </div>
+
+                <!-- RIGHT (East) Direction -->
+                <div class="direction right">
+                    <div class="road road-horizontal">
+                        <div class="lane lane-1">
+                            <div class="vehicles-container" id="rightLane1"></div>
+                        </div>
+                        <div class="lane lane-2">
+                            <div class="vehicles-container" id="rightLane2"></div>
+                        </div>
+                    </div>
+                    <div class="signal-container">
+                        <div class="traffic-signal" id="signalRight">
+                            <div class="signal red"></div>
+                            <div class="signal yellow"></div>
+                            <div class="signal green"></div>
+                        </div>
+                        <div class="signal-label">EAST</div>
+                        <div class="signal-timer" id="timerRight">0s</div>
+                    </div>
+                </div>
+
+                <!-- BOTTOM (South) Direction -->
+                <div class="direction bottom">
+                    <div class="signal-container">
+                        <div class="traffic-signal" id="signalBottom">
+                            <div class="signal red"></div>
+                            <div class="signal yellow"></div>
+                            <div class="signal green"></div>
+                        </div>
+                        <div class="signal-label">SOUTH</div>
+                        <div class="signal-timer" id="timerBottom">0s</div>
+                    </div>
+                    <div class="road road-vertical">
+                        <div class="lane lane-1">
+                            <div class="vehicles-container" id="bottomLane1"></div>
+                        </div>
+                        <div class="lane lane-2">
+                            <div class="vehicles-container" id="bottomLane2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🚦 AI-driven Smart Traffic Control Prototype | SmartFlow v1.0</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

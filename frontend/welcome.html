@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SmartFlow</title>
+    <link rel="stylesheet" href="welcome-styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <!-- Content Container -->
+    <div class="welcome-container">
+        <!-- Welcome Box -->
+        <div class="welcome-box">
+            <!-- Animated Traffic Light Symbol -->
+            <div class="animated-traffic-light">
+                <div class="light-container">
+                    <div class="light red"></div>
+                    <div class="light yellow"></div>
+                    <div class="light green"></div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="welcome-content">
+                <h1 class="welcome-title">Welcome to <span class="highlight">SmartFlow</span></h1>
+                
+                <p class="welcome-subtitle">AI-Powered Traffic Optimization System</p>
+
+                <div class="user-greeting">
+                    Hello, <span class="username-display" id="userDisplay">User</span>! 👋
+                </div>
+
+                <!-- Features Grid -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <div class="feature-title">AI Intelligence</div>
+                        <div class="feature-text">Smart traffic optimization</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-title">Real-Time Analytics</div>
+                        <div class="feature-text">Live traffic insights</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-title">Performance</div>
+                        <div class="feature-text">+30% efficiency gain</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <div class="feature-title">Security</div>
+                        <div class="feature-text">Enterprise-grade</div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <p class="description">
+                    SmartFlow uses advanced AI algorithms to optimize traffic signals in real-time, 
+                    reducing congestion and improving traffic flow across urban areas.
+                </p>
+
+                <!-- CTA Button -->
+                <button class="welcome-btn" onclick="goToHome()">
+                    <span class="btn-content">
+                        <span class="btn-text">Enter Dashboard</span>
+                        <span class="btn-arrow">→</span>
+                    </span>
+                </button>
+
+                <!-- Logout Option -->
+                <div class="logout-container">
+                    <a href="#" onclick="logout(event)" class="logout-link">← Back to Home</a>
+                </div>
+            </div>
+
+            <!-- Floating Elements -->
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Strip -->
+    <div class="stats-strip">
+        <div class="stat">
+            <span class="stat-number">500K+</span>
+            <span class="stat-label">Vehicles Optimized</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">30%</span>
+            <span class="stat-label">Congestion Reduction</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">45mins</span>
+            <span class="stat-label">Avg Time Saved/Day</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number">24/7</span>
+            <span class="stat-label">AI Monitoring</span>
+        </div>
+    </div>
+
+    <script src="welcome-script.js"></script>
+</body>
+</html>

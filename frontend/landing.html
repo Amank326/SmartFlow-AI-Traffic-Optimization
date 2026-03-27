@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFlow - AI Traffic Optimization</title>
+    <link rel="stylesheet" href="landing-styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🚦</span>
+                <span class="logo-text">SmartFlow AI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                <li><a href="#stats" class="nav-link">Impact</a></li>
+            </ul>
+            <a href="welcome.html" class="btn-login">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">AI-Powered Traffic</span>
+                        <span class="highlight-text">Intelligence</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Experience the future of urban mobility. SmartFlow optimizes traffic signals in real-time, reducing congestion by up to 35% and cutting travel time for millions.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="welcome.html" class="btn btn-primary btn-lg">
+                            Launch Dashboard
+                            <span class="btn-arrow">→</span>
+                        </a>
+                        <button class="btn btn-secondary btn-lg" onclick="scrollToSection('how-it-works')">
+                            See How It Works
+                            <span class="btn-arrow">↓</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="3d-scene">
+                        <div class="rotating-globe">
+                            <div class="globe-ring ring-1"></div>
+                            <div class="globe-ring ring-2"></div>
+                            <div class="globe-ring ring-3"></div>
+                            <div class="center-point"></div>
+                        </div>
+                        <div class="floating-cards">
+                            <div class="data-card card-1">
+                                <div class="card-icon">📊</div>
+                                <div class="card-text">Real-Time</div>
+                            </div>
+                            <div class="data-card card-2">
+                                <div class="card-icon">⚡</div>
+                                <div class="card-text">Fast Track</div>
+                            </div>
+                            <div class="data-card card-3">
+                                <div class="card-icon">🎯</div>
+                                <div class="card-text">Smart AI</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="features-container">
+            <div class="section-header">
+                <h2>Powerful Features</h2>
+                <p>Everything you need to optimize traffic in one intelligent platform</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <div class="icon-3d">🤖</div>
+                    </div>
+                    <h3>Advanced AI</h3>
+                    <p>Machine learning algorithms that adapt to traffic patterns and predict congestion in real-time</p>
+                    <div class="feature-details">
+                        <span>→ Predictive Analytics</span>
+                        <span>→ Pattern Recognition</span>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <div class="icon-3d">📊</div>
+                    </div>
+                    <h3>Live Analytics</h3>
+                    <p>Monitor traffic flow, wait times, and optimization metrics with interactive real-time dashboards</p>
+                    <div class="feature-details">
+                        <span>→ Real-Time Metrics</span>
+                        <span>→ Live Reports</span>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <div class="icon-3d">⚡</div>
+                    </div>
+                    <h3>Speed Optimized</h3>
+                    <p>Process millions of data points instantly with our ultra-fast optimization engine</p>
+                    <div class="feature-details">
+                        <span>→ Sub-Second Response</span>
+                        <span>→ Zero Latency</span>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <div class="icon-3d">🔒</div>
+                    </div>
+                    <h3>Enterprise Grade</h3>
+                    <p>Bank-level security with 99.9% uptime SLA and full compliance with all regulations</p>
+                    <div class="feature-details">
+                        <span>→ Military Encryption</span>
+                        <span>→ Auto Failover</span>
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <div class="icon-3d">🌍</div>
+                    </div>
+                    <h3>Global Scale</h3>
+                    <p>Deploy across multiple cities and regions with seamless coordination and synchronization</p>
+                    <div class="feature-details">
+                        <span>→ Multi-City Support</span>
+                        <span>→ Distributed System</span>
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <div class="icon-3d">📱</div>
+                    </div>
+                    <h3>Multi-Platform</h3>
+                    <p>Access from web, mobile, or API. Works seamlessly across all devices and integrations</p>
+                    <div class="feature-details">
+                        <span>→ Web App</span>
+                        <span>→ Mobile First</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="how-container">
+            <div class="section-header">
+                <h2>How SmartFlow Works</h2>
+                <p>A seamless process that transforms traffic management</p>
+            </div>
+
+            <div class="process-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-number">01</div>
+                    <h3>Data Collection</h3>
+                    <p>Real-time collection of traffic data from sensors, cameras, and IoT devices across the city</p>
+                    <div class="timeline-icon">📡</div>
+                </div>
+
+                <div class="timeline-divider"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">02</div>
+                    <h3>AI Processing</h3>
+                    <p>Advanced algorithms analyze patterns and predict traffic flow for optimal signal timing</p>
+                    <div class="timeline-icon">🧠</div>
+                </div>
+
+                <div class="timeline-divider"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">03</div>
+                    <h3>Signal Optimization</h3>
+                    <p>Dynamic adjustment of traffic light timing to maximize flow and minimize congestion</p>
+                    <div class="timeline-icon">⚙️</div>
+                </div>
+
+                <div class="timeline-divider"></div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">04</div>
+                    <h3>Continuous Learning</h3>
+                    <p>System learns from outcomes and improves optimization accuracy over time</p>
+                    <div class="timeline-icon">🚀</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits">
+        <div class="benefits-container">
+            <div class="section-header">
+                <h2>Transformative Impact</h2>
+                <p>See what SmartFlow delivers for your city</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-number">35%</div>
+                    <p>Congestion Reduction</p>
+                    <small>Average traffic congestion decreased</small>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">45min</div>
+                    <p>Time Saved Daily</p>
+                    <small>Per commuter on average</small>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">500K+</div>
+                    <p>Vehicles Optimized</p>
+                    <small>Vehicles processed daily</small>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-number">₹200Cr</div>
+                    <p>Fuel Savings</p>
+                    <small>Annual savings across cities</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>99.9%</h3>
+                <p>System Uptime</p>
+            </div>
+            <div class="stat-item">
+                <h3>15+</h3>
+                <p>Cities Worldwide</p>
+            </div>
+            <div class="stat-item">
+                <h3>2 Billion+</h3>
+                <p>Commuters Helped</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>AI Monitoring</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Ready to Transform Your City?</h2>
+            <p>Join thousands of cities optimizing traffic with SmartFlow AI</p>
+            <a href="welcome.html" class="btn btn-primary btn-xl">
+                Start Free Trial
+                <span class="btn-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SmartFlow AI</h3>
+                <p>Transforming urban mobility with intelligent traffic optimization</p>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#benefits">Benefits</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SmartFlow AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Background Elements -->
+    <div class="background-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <script src="landing-script.js"></script>
+</body>
+</html>
