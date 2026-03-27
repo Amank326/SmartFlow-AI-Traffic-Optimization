@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartFlow - AI Traffic Signal Optimization</title>
+    <meta name="description" content="AI-powered adaptive traffic signal optimization dashboard with real-time monitoring and analytics.">
+    <title>SmartFlow AI — Adaptive Traffic Signal Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -12,8 +17,9 @@
         <header class="header">
             <div class="header-top">
                 <div>
-                    <h1 class="main-title">🚦 SmartFlow AI – Adaptive Traffic Intelligence System</h1>
-                    <p class="main-subtitle">Real-Time Traffic Optimization using AI</p>
+                    <div class="dashboard-badge">HACKSPRINT 2026 — Smart Cities & Transportation</div>
+                    <h1 class="main-title">🚦 SmartFlow AI — Adaptive Traffic Signal Optimization</h1>
+                    <p class="main-subtitle">Reducing Vehicle Wait Time & Maximizing Intersection Throughput with Real-Time AI</p>
                 </div>
                 <div class="header-user-section">
                     <span class="user-greeting" id="userGreeting">Welcome, User</span>
@@ -252,39 +258,58 @@
                     </div>
                 </div>
 
-                <!-- Real-time Chart Area -->
-                <div class="chart-section">
-                    <div class="chart-title">📈 Vehicles Per Direction (Last 5 readings)</div>
-                    <div class="mini-charts">
-                        <div class="direction-chart">
-                            <span class="direction-name">North</span>
-                            <div class="chart-bar-container">
-                                <div class="chart-bar north-bar" id="chartNorth" style="height: 0%"></div>
+                <!-- Chart.js Real-Time Charts -->
+                <div class="chartjs-section">
+                    <div class="chartjs-row">
+                        <div class="chartjs-card">
+                            <div class="chart-title">📈 Traffic Flow Over Time</div>
+                            <div class="chart-canvas-wrap">
+                                <canvas id="trafficLineChart"></canvas>
                             </div>
-                            <span class="chart-value" id="northChartValue">0</span>
                         </div>
-                        <div class="direction-chart">
-                            <span class="direction-name">South</span>
-                            <div class="chart-bar-container">
-                                <div class="chart-bar south-bar" id="chartSouth" style="height: 0%"></div>
+                        <div class="chartjs-card">
+                            <div class="chart-title">🍩 Traffic Distribution</div>
+                            <div class="chart-canvas-wrap doughnut-wrap">
+                                <canvas id="trafficDoughnutChart"></canvas>
                             </div>
-                            <span class="chart-value" id="southChartValue">0</span>
-                        </div>
-                        <div class="direction-chart">
-                            <span class="direction-name">East</span>
-                            <div class="chart-bar-container">
-                                <div class="chart-bar east-bar" id="chartEast" style="height: 0%"></div>
-                            </div>
-                            <span class="chart-value" id="eastChartValue">0</span>
-                        </div>
-                        <div class="direction-chart">
-                            <span class="direction-name">West</span>
-                            <div class="chart-bar-container">
-                                <div class="chart-bar west-bar" id="chartWest" style="height: 0%"></div>
-                            </div>
-                            <span class="chart-value" id="westChartValue">0</span>
                         </div>
                     </div>
+                    <div class="chartjs-row">
+                        <div class="chartjs-card">
+                            <div class="chart-title">📊 Vehicles Per Direction</div>
+                            <div class="chart-canvas-wrap">
+                                <canvas id="trafficBarChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chartjs-card">
+                            <div class="chart-title">⏱️ Wait Time Trend</div>
+                            <div class="chart-canvas-wrap">
+                                <canvas id="waitTimeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Decision Log -->
+                <div class="ai-decision-log">
+                    <div class="decision-log-header">
+                        <span>🧠 AI Decision Log — Live Algorithm Reasoning</span>
+                        <span class="log-badge" id="logCount">0 decisions</span>
+                    </div>
+                    <div class="decision-log-body" id="decisionLogBody">
+                        <div class="log-entry log-info">
+                            <span class="log-time">--:--:--</span>
+                            <span class="log-msg">System initialized. Waiting for traffic data...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legacy mini-charts (hidden, kept for backward compat) -->
+                <div style="display:none">
+                    <span id="chartNorth"></span><span id="chartSouth"></span>
+                    <span id="chartEast"></span><span id="chartWest"></span>
+                    <span id="northChartValue"></span><span id="southChartValue"></span>
+                    <span id="eastChartValue"></span><span id="westChartValue"></span>
                 </div>
 
                 <!-- Performance Report -->
@@ -332,7 +357,7 @@
                             <div class="signal yellow"></div>
                             <div class="signal green"></div>
                         </div>
-                        <div class="signal-label">NORTH</div>
+                        <div class="signal-label">↑ NORTH</div>
                         <div class="signal-timer" id="timerTop">0s</div>
                     </div>
                 </div>
@@ -345,7 +370,7 @@
                             <div class="signal yellow"></div>
                             <div class="signal green"></div>
                         </div>
-                        <div class="signal-label">WEST</div>
+                        <div class="signal-label">← WEST</div>
                         <div class="signal-timer" id="timerLeft">0s</div>
                     </div>
                     <div class="road road-horizontal">
@@ -381,7 +406,7 @@
                             <div class="signal yellow"></div>
                             <div class="signal green"></div>
                         </div>
-                        <div class="signal-label">EAST</div>
+                        <div class="signal-label">EAST →</div>
                         <div class="signal-timer" id="timerRight">0s</div>
                     </div>
                 </div>
@@ -394,7 +419,7 @@
                             <div class="signal yellow"></div>
                             <div class="signal green"></div>
                         </div>
-                        <div class="signal-label">SOUTH</div>
+                        <div class="signal-label">↓ SOUTH</div>
                         <div class="signal-timer" id="timerBottom">0s</div>
                     </div>
                     <div class="road road-vertical">
@@ -411,10 +436,11 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>🚦 AI-driven Smart Traffic Control Prototype | SmartFlow v1.0</p>
+            <p>🚦 SmartFlow AI — Adaptive Traffic Signal Optimization | HACKSPRINT 2026 | Built by Aman Kumar Gupta</p>
         </footer>
     </div>
 
     <script src="script.js"></script>
+    <script src="charts.js"></script>
 </body>
 </html>

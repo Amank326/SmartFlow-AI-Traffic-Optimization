@@ -3,274 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartFlow - AI Traffic Optimization</title>
+    <title>SmartFlow AI — Adaptive Traffic Signal Optimization</title>
+    <meta name="description" content="AI-powered adaptive traffic control system that dynamically adjusts signal timings based on real-time traffic conditions. Reduces congestion by 35%.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="landing-styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="logo">
-                <span class="logo-icon">🚦</span>
-                <span class="logo-text">SmartFlow AI</span>
+                <div class="logo-icon-wrap">
+                    <span class="logo-dot red"></span>
+                    <span class="logo-dot yellow"></span>
+                    <span class="logo-dot green active"></span>
+                </div>
+                <span class="logo-text">Smart<span class="logo-highlight">Flow</span></span>
             </div>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#problem" class="nav-link">Problem</a></li>
+                <li><a href="#solution" class="nav-link">Solution</a></li>
                 <li><a href="#features" class="nav-link">Features</a></li>
-                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                <li><a href="#benefits" class="nav-link">Benefits</a></li>
-                <li><a href="#stats" class="nav-link">Impact</a></li>
+                <li><a href="#algorithm" class="nav-link">Algorithm</a></li>
+                <li><a href="#impact" class="nav-link">Impact</a></li>
             </ul>
-            <a href="welcome.html" class="btn-login">Get Started</a>
+            <a href="welcome.html" class="btn-cta-nav">Launch Dashboard →</a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        <span class="gradient-text">AI-Powered Traffic</span>
-                        <span class="highlight-text">Intelligence</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        Experience the future of urban mobility. SmartFlow optimizes traffic signals in real-time, reducing congestion by up to 35% and cutting travel time for millions.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="welcome.html" class="btn btn-primary btn-lg">
-                            Launch Dashboard
-                            <span class="btn-arrow">→</span>
-                        </a>
-                        <button class="btn btn-secondary btn-lg" onclick="scrollToSection('how-it-works')">
-                            See How It Works
-                            <span class="btn-arrow">↓</span>
-                        </button>
-                    </div>
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                Smart Cities & Transportation — HACKSPRINT 2026
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">Adaptive Traffic Signal</span>
+                <span class="title-line gradient-text">Optimization with AI</span>
+            </h1>
+            <p class="hero-subtitle">
+                Urban congestion costs India ₹1.5 lakh crore annually. SmartFlow uses real-time AI optimization 
+                to dynamically adjust signal timings — reducing average waiting time by <strong>35%</strong> and 
+                improving intersection throughput by <strong>40%</strong>.
+            </p>
+            <div class="hero-buttons">
+                <a href="welcome.html" class="btn btn-primary btn-lg">
+                    <span class="btn-shine"></span>
+                    Launch Live Demo
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <button class="btn btn-glass btn-lg" onclick="scrollToSection('solution')">
+                    See How It Works
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+                </button>
+            </div>
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <div class="metric-value" data-count="35">0</div>
+                    <div class="metric-unit">%</div>
+                    <div class="metric-label">Congestion Reduced</div>
                 </div>
-                <div class="hero-visual">
-                    <div class="3d-scene">
-                        <div class="rotating-globe">
-                            <div class="globe-ring ring-1"></div>
-                            <div class="globe-ring ring-2"></div>
-                            <div class="globe-ring ring-3"></div>
-                            <div class="center-point"></div>
-                        </div>
-                        <div class="floating-cards">
-                            <div class="data-card card-1">
-                                <div class="card-icon">📊</div>
-                                <div class="card-text">Real-Time</div>
-                            </div>
-                            <div class="data-card card-2">
-                                <div class="card-icon">⚡</div>
-                                <div class="card-text">Fast Track</div>
-                            </div>
-                            <div class="data-card card-3">
-                                <div class="card-icon">🎯</div>
-                                <div class="card-text">Smart AI</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="metric-divider"></div>
+                <div class="metric-card">
+                    <div class="metric-value" data-count="40">0</div>
+                    <div class="metric-unit">%</div>
+                    <div class="metric-label">Throughput Increase</div>
                 </div>
+                <div class="metric-divider"></div>
+                <div class="metric-card">
+                    <div class="metric-value" data-count="45">0</div>
+                    <div class="metric-unit">min</div>
+                    <div class="metric-label">Time Saved / Day</div>
+                </div>
+                <div class="metric-divider"></div>
+                <div class="metric-card">
+                    <div class="metric-value" data-count="24">0</div>
+                    <div class="metric-unit">/7</div>
+                    <div class="metric-label">Real-time Monitoring</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="intersection-preview">
+                <div class="preview-road road-h"></div>
+                <div class="preview-road road-v"></div>
+                <div class="preview-signal sig-n"><span></span></div>
+                <div class="preview-signal sig-s"><span></span></div>
+                <div class="preview-signal sig-e"><span></span></div>
+                <div class="preview-signal sig-w"><span></span></div>
+                <div class="preview-car car-1"></div>
+                <div class="preview-car car-2"></div>
+                <div class="preview-car car-3"></div>
+                <div class="preview-car car-4"></div>
+                <div class="preview-pulse"></div>
             </div>
         </div>
         <div class="scroll-indicator">
             <span>Scroll to explore</span>
-            <div class="scroll-arrow"></div>
+            <div class="scroll-mouse">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Statement Section -->
+    <section id="problem" class="section problem-section">
+        <div class="section-container">
+            <div class="section-badge">The Challenge</div>
+            <h2 class="section-title">Urban Congestion is a <span class="text-danger">₹1.5 Lakh Crore</span> Problem</h2>
+            <p class="section-subtitle">Fixed-timing traffic signals are the leading cause of urban congestion, economic losses, and environmental degradation.</p>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3>Wasted Time</h3>
+                    <p>Average Indian commuter wastes <strong>1.5 hours/day</strong> stuck in traffic due to poorly timed signals</p>
+                    <div class="problem-stat">7% GDP Lost</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🌍</div>
+                    <h3>Environmental Damage</h3>
+                    <p>Idling vehicles at red signals produce <strong>40% more CO₂</strong> than free-flowing traffic</p>
+                    <div class="problem-stat">+40% Emissions</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Economic Loss</h3>
+                    <p>Congestion causes <strong>₹1.5 lakh crore</strong> in annual economic losses across Indian cities</p>
+                    <div class="problem-stat">₹1.5L Cr / Year</div>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">🚑</div>
+                    <h3>Emergency Delays</h3>
+                    <p>Fixed signals cause <strong>critical delays</strong> for ambulances and emergency vehicles</p>
+                    <div class="problem-stat">Lives at Risk</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="section solution-section">
+        <div class="section-container">
+            <div class="section-badge">Our Solution</div>
+            <h2 class="section-title">AI-Powered <span class="text-accent">Adaptive</span> Signal Control</h2>
+            <p class="section-subtitle">SmartFlow replaces fixed-timing signals with an intelligent optimization model that dynamically adjusts in real-time.</p>
+
+            <div class="solution-flow">
+                <div class="flow-step">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">📡</div>
+                    <h3>Sense</h3>
+                    <p>Real-time vehicle counting from sensors & cameras at each lane of the intersection</p>
+                    <div class="step-tech">IoT Sensors • Computer Vision</div>
+                </div>
+                <div class="flow-arrow">
+                    <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h32M24 4l8 8-8 8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">🧠</div>
+                    <h3>Analyze</h3>
+                    <p>AI algorithm calculates optimal green time proportional to traffic load per direction</p>
+                    <div class="step-tech">Adaptive AI • Predictive Model</div>
+                </div>
+                <div class="flow-arrow">
+                    <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h32M24 4l8 8-8 8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">🚦</div>
+                    <h3>Optimize</h3>
+                    <p>Signals dynamically adjust — heavy lanes get more green time, empty lanes are skipped</p>
+                    <div class="step-tech">Dynamic Timing • Anti-Starvation</div>
+                </div>
+                <div class="flow-arrow">
+                    <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h32M24 4l8 8-8 8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                </div>
+                <div class="flow-step">
+                    <div class="step-number">04</div>
+                    <div class="step-icon">📊</div>
+                    <h3>Learn</h3>
+                    <p>System tracks performance, learns traffic patterns, and continuously improves timing</p>
+                    <div class="step-tech">ML Feedback Loop • Analytics</div>
+                </div>
+            </div>
+
+            <!-- Comparison -->
+            <div class="comparison-section">
+                <h3 class="comparison-title">Fixed Timing vs SmartFlow AI</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card old">
+                        <div class="comparison-header">❌ Traditional Fixed Timing</div>
+                        <ul>
+                            <li>Same green time regardless of traffic</li>
+                            <li>Empty lanes still get full green phase</li>
+                            <li>No emergency vehicle priority</li>
+                            <li>No night-time optimization</li>
+                            <li>Avg wait: <strong class="text-danger">45+ seconds</strong></li>
+                        </ul>
+                    </div>
+                    <div class="comparison-vs">VS</div>
+                    <div class="comparison-card new">
+                        <div class="comparison-header">✅ SmartFlow Adaptive AI</div>
+                        <ul>
+                            <li>Green time proportional to vehicle count</li>
+                            <li>Empty lanes skipped (Night Mode)</li>
+                            <li>Emergency override in real-time</li>
+                            <li>Predictive AI anticipates congestion</li>
+                            <li>Avg wait: <strong class="text-success">15-20 seconds</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="features-container">
-            <div class="section-header">
-                <h2>Powerful Features</h2>
-                <p>Everything you need to optimize traffic in one intelligent platform</p>
-            </div>
-
+    <section id="features" class="section features-section">
+        <div class="section-container">
+            <div class="section-badge">Core Features</div>
+            <h2 class="section-title">Built for <span class="text-accent">Smart Cities</span></h2>
+            <p class="section-subtitle">Every feature designed to solve real urban traffic challenges</p>
+            
             <div class="features-grid">
-                <!-- Feature 1 -->
+                <div class="feature-card featured">
+                    <div class="feature-glow"></div>
+                    <div class="feature-icon">🤖</div>
+                    <h3>Adaptive AI Engine</h3>
+                    <p>Proportional green time allocation based on real-time vehicle count per direction. Formula: <code>green_time = (cars/total) × 60s</code></p>
+                    <div class="feature-tag">Core Algorithm</div>
+                </div>
                 <div class="feature-card">
-                    <div class="feature-icon-box">
-                        <div class="icon-3d">🤖</div>
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-Time Analytics</h3>
+                    <p>Live charts showing vehicle flow, wait times, congestion levels, and throughput per direction</p>
+                    <div class="feature-tag">Dashboard</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚨</div>
+                    <h3>Emergency Override</h3>
+                    <p>Instant green signal for emergency vehicles — ambulance, fire truck priority in one click</p>
+                    <div class="feature-tag">Safety Critical</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <h3>Night Mode</h3>
+                    <p>Automatically skips empty lanes during low-traffic hours, reducing unnecessary red-light waits</p>
+                    <div class="feature-tag">Efficiency</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Predictive AI Mode</h3>
+                    <p>Analyzes traffic trends and predicts upcoming congestion before it happens</p>
+                    <div class="feature-tag">Smart AI</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📡</div>
+                    <h3>Backend API</h3>
+                    <p>RESTful API serving real-time traffic data with congestion levels via Node.js/Express backend</p>
+                    <div class="feature-tag">Infrastructure</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithm Section -->
+    <section id="algorithm" class="section algorithm-section">
+        <div class="section-container">
+            <div class="section-badge">The Algorithm</div>
+            <h2 class="section-title">How Our <span class="text-accent">AI Optimizes</span> Signals</h2>
+            <p class="section-subtitle">A proportional, fair, and anti-starvation signal timing algorithm</p>
+
+            <div class="algo-showcase">
+                <div class="algo-visual">
+                    <div class="algo-box">
+                        <div class="algo-title">📥 Input</div>
+                        <div class="algo-data">
+                            <div class="data-row"><span>North</span><span class="data-bar" style="width:60%">12 cars</span></div>
+                            <div class="data-row"><span>South</span><span class="data-bar" style="width:40%">8 cars</span></div>
+                            <div class="data-row"><span>East</span><span class="data-bar" style="width:15%">3 cars</span></div>
+                            <div class="data-row"><span>West</span><span class="data-bar" style="width:30%">6 cars</span></div>
+                        </div>
                     </div>
-                    <h3>Advanced AI</h3>
-                    <p>Machine learning algorithms that adapt to traffic patterns and predict congestion in real-time</p>
-                    <div class="feature-details">
-                        <span>→ Predictive Analytics</span>
-                        <span>→ Pattern Recognition</span>
+                    <div class="algo-arrow">
+                        <div class="arrow-label">AI Processing</div>
+                        <svg width="60" height="30"><path d="M0 15h50M42 7l8 8-8 8" stroke="#00d4ff" stroke-width="2" fill="none"/></svg>
+                    </div>
+                    <div class="algo-box output">
+                        <div class="algo-title">📤 Output</div>
+                        <div class="algo-result">
+                            <div class="result-item">
+                                <span class="result-label">NS Phase</span>
+                                <span class="result-value ns">41s green</span>
+                                <small>(20/29 × 60)</small>
+                            </div>
+                            <div class="result-item">
+                                <span class="result-label">EW Phase</span>
+                                <span class="result-value ew">19s green</span>
+                                <small>(9/29 × 60)</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Feature 2 -->
-                <div class="feature-card">
-                    <div class="feature-icon-box">
-                        <div class="icon-3d">📊</div>
-                    </div>
-                    <h3>Live Analytics</h3>
-                    <p>Monitor traffic flow, wait times, and optimization metrics with interactive real-time dashboards</p>
-                    <div class="feature-details">
-                        <span>→ Real-Time Metrics</span>
-                        <span>→ Live Reports</span>
-                    </div>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="feature-card">
-                    <div class="feature-icon-box">
-                        <div class="icon-3d">⚡</div>
-                    </div>
-                    <h3>Speed Optimized</h3>
-                    <p>Process millions of data points instantly with our ultra-fast optimization engine</p>
-                    <div class="feature-details">
-                        <span>→ Sub-Second Response</span>
-                        <span>→ Zero Latency</span>
-                    </div>
-                </div>
-
-                <!-- Feature 4 -->
-                <div class="feature-card">
-                    <div class="feature-icon-box">
-                        <div class="icon-3d">🔒</div>
-                    </div>
-                    <h3>Enterprise Grade</h3>
-                    <p>Bank-level security with 99.9% uptime SLA and full compliance with all regulations</p>
-                    <div class="feature-details">
-                        <span>→ Military Encryption</span>
-                        <span>→ Auto Failover</span>
-                    </div>
-                </div>
-
-                <!-- Feature 5 -->
-                <div class="feature-card">
-                    <div class="feature-icon-box">
-                        <div class="icon-3d">🌍</div>
-                    </div>
-                    <h3>Global Scale</h3>
-                    <p>Deploy across multiple cities and regions with seamless coordination and synchronization</p>
-                    <div class="feature-details">
-                        <span>→ Multi-City Support</span>
-                        <span>→ Distributed System</span>
-                    </div>
-                </div>
-
-                <!-- Feature 6 -->
-                <div class="feature-card">
-                    <div class="feature-icon-box">
-                        <div class="icon-3d">📱</div>
-                    </div>
-                    <h3>Multi-Platform</h3>
-                    <p>Access from web, mobile, or API. Works seamlessly across all devices and integrations</p>
-                    <div class="feature-details">
-                        <span>→ Web App</span>
-                        <span>→ Mobile First</span>
+                <div class="algo-formula">
+                    <div class="formula-card">
+                        <h4>Core Formula</h4>
+                        <div class="formula">green_time = (lane_cars / total_cars) × cycle_time</div>
+                        <div class="formula-constraints">
+                            <span>Min: 4s</span>
+                            <span>Max: 15s</span>
+                            <span>Cycle: 60s</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="how-container">
-            <div class="section-header">
-                <h2>How SmartFlow Works</h2>
-                <p>A seamless process that transforms traffic management</p>
-            </div>
+    <!-- Impact Section -->
+    <section id="impact" class="section impact-section">
+        <div class="section-container">
+            <div class="section-badge">Measured Impact</div>
+            <h2 class="section-title">Transformative <span class="text-accent">Results</span></h2>
+            <p class="section-subtitle">Performance metrics from our simulation demonstrate significant improvements</p>
 
-            <div class="process-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-number">01</div>
-                    <h3>Data Collection</h3>
-                    <p>Real-time collection of traffic data from sensors, cameras, and IoT devices across the city</p>
-                    <div class="timeline-icon">📡</div>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-number" data-count="35">0</div>
+                    <div class="impact-suffix">%</div>
+                    <div class="impact-label">Avg Wait Time Reduction</div>
+                    <div class="impact-bar"><div class="impact-fill" style="width:35%"></div></div>
                 </div>
-
-                <div class="timeline-divider"></div>
-
-                <div class="timeline-item">
-                    <div class="timeline-number">02</div>
-                    <h3>AI Processing</h3>
-                    <p>Advanced algorithms analyze patterns and predict traffic flow for optimal signal timing</p>
-                    <div class="timeline-icon">🧠</div>
+                <div class="impact-card">
+                    <div class="impact-number" data-count="40">0</div>
+                    <div class="impact-suffix">%</div>
+                    <div class="impact-label">Throughput Improvement</div>
+                    <div class="impact-bar"><div class="impact-fill" style="width:40%"></div></div>
                 </div>
-
-                <div class="timeline-divider"></div>
-
-                <div class="timeline-item">
-                    <div class="timeline-number">03</div>
-                    <h3>Signal Optimization</h3>
-                    <p>Dynamic adjustment of traffic light timing to maximize flow and minimize congestion</p>
-                    <div class="timeline-icon">⚙️</div>
+                <div class="impact-card">
+                    <div class="impact-number" data-count="25">0</div>
+                    <div class="impact-suffix">%</div>
+                    <div class="impact-label">CO₂ Emission Reduction</div>
+                    <div class="impact-bar"><div class="impact-fill" style="width:25%"></div></div>
                 </div>
-
-                <div class="timeline-divider"></div>
-
-                <div class="timeline-item">
-                    <div class="timeline-number">04</div>
-                    <h3>Continuous Learning</h3>
-                    <p>System learns from outcomes and improves optimization accuracy over time</p>
-                    <div class="timeline-icon">🚀</div>
+                <div class="impact-card">
+                    <div class="impact-number" data-count="19">0</div>
+                    <div class="impact-suffix">v/min</div>
+                    <div class="impact-label">Peak Vehicles Processed</div>
+                    <div class="impact-bar"><div class="impact-fill" style="width:60%"></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section id="benefits" class="benefits">
-        <div class="benefits-container">
-            <div class="section-header">
-                <h2>Transformative Impact</h2>
-                <p>See what SmartFlow delivers for your city</p>
-            </div>
-
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <div class="benefit-number">35%</div>
-                    <p>Congestion Reduction</p>
-                    <small>Average traffic congestion decreased</small>
+    <!-- Tech Stack Section -->
+    <section class="section tech-section">
+        <div class="section-container">
+            <div class="section-badge">Technology</div>
+            <h2 class="section-title">Built With Modern <span class="text-accent">Tech Stack</span></h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <div class="tech-icon">⚡</div>
+                    <span>Vanilla JS</span>
                 </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-number">45min</div>
-                    <p>Time Saved Daily</p>
-                    <small>Per commuter on average</small>
+                <div class="tech-item">
+                    <div class="tech-icon">🟢</div>
+                    <span>Node.js</span>
                 </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-number">500K+</div>
-                    <p>Vehicles Optimized</p>
-                    <small>Vehicles processed daily</small>
+                <div class="tech-item">
+                    <div class="tech-icon">🚂</div>
+                    <span>Express.js</span>
                 </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-number">₹200Cr</div>
-                    <p>Fuel Savings</p>
-                    <small>Annual savings across cities</small>
+                <div class="tech-item">
+                    <div class="tech-icon">📊</div>
+                    <span>Chart.js</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section id="stats" class="stats">
-        <div class="stats-container">
-            <div class="stat-item">
-                <h3>99.9%</h3>
-                <p>System Uptime</p>
-            </div>
-            <div class="stat-item">
-                <h3>15+</h3>
-                <p>Cities Worldwide</p>
-            </div>
-            <div class="stat-item">
-                <h3>2 Billion+</h3>
-                <p>Commuters Helped</p>
-            </div>
-            <div class="stat-item">
-                <h3>24/7</h3>
-                <p>AI Monitoring</p>
+                <div class="tech-item">
+                    <div class="tech-icon">🐳</div>
+                    <span>Docker</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🎨</div>
+                    <span>CSS3</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🏗️</div>
+                    <span>REST API</span>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">🧠</div>
+                    <span>AI/ML</span>
+                </div>
             </div>
         </div>
     </section>
@@ -278,50 +411,50 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-container">
-            <h2>Ready to Transform Your City?</h2>
-            <p>Join thousands of cities optimizing traffic with SmartFlow AI</p>
+            <h2>Experience SmartFlow <span class="text-accent">Live</span></h2>
+            <p>See how AI optimizes traffic signals in real-time. Launch the interactive dashboard now.</p>
             <a href="welcome.html" class="btn btn-primary btn-xl">
-                Start Free Trial
-                <span class="btn-arrow">→</span>
+                <span class="btn-shine"></span>
+                Launch Live Dashboard
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+            <div class="cta-note">No login required • Instant access • Free</div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-section">
-                <h3>SmartFlow AI</h3>
-                <p>Transforming urban mobility with intelligent traffic optimization</p>
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="logo-icon-wrap">
+                            <span class="logo-dot red"></span>
+                            <span class="logo-dot yellow"></span>
+                            <span class="logo-dot green active"></span>
+                        </div>
+                        <span class="logo-text">Smart<span class="logo-highlight">Flow</span></span>
+                    </div>
+                    <p>AI-powered adaptive traffic signal optimization for smart cities. Built during HACKSPRINT 2026.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <a href="#problem">Problem</a>
+                    <a href="#solution">Solution</a>
+                    <a href="#features">Features</a>
+                    <a href="#algorithm">Algorithm</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <a href="welcome.html">Dashboard</a>
+                    <a href="https://github.com/Amank326" target="_blank">GitHub</a>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>Product</h4>
-                <ul>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#benefits">Benefits</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>© 2026 SmartFlow AI — Made with ❤️ by Aman Kumar Gupta during HACKSPRINT</p>
             </div>
-            <div class="footer-section">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 SmartFlow AI. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Background Elements -->
-    <div class="background-animation">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
 
     <script src="landing-script.js"></script>
 </body>

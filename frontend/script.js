@@ -899,6 +899,18 @@ class TrafficSystem {
         if (carsWaitingEl) {
             carsWaitingEl.textContent = totalTraffic;
         }
+        
+        // ========== Update Chart.js charts ==========
+        if (window.SmartFlowCharts) {
+            const avgWait = this.analytics ? this.analytics.getAverageWaitTime() : 0;
+            window.SmartFlowCharts.updateCharts(
+                this.northCars || 0,
+                this.southCars || 0,
+                this.eastCars || 0,
+                this.westCars || 0,
+                avgWait
+            );
+        }
     }
 
     /**
@@ -909,8 +921,49 @@ class TrafficSystem {
             // Update internal state
             this.congestionLevel = congestionLevel;
             
-            // Could add UI updates here in the future
-            // For now, log it for debugging
+            // Update congestion badge in analytics
+            const badge = document.getElementById('congestionBadge');
+            if (badge) {
+                badge.textContent = congestionLevel;
+                badge.className = 'metric-value congestion-badge';
+                if (congestionLevel === 'High') {
+                    badge.style.color = '#ef4444';
+                    badge.style.textShadow = '0 0 10px rgba(239, 68, 68, 0.5)';
+                } else if (congestionLevel === 'Medium') {
+                    badge.style.color = '#f59e0b';
+                    badge.style.textShadow = '0 0 10px rgba(245, 158, 11, 0.5)';
+                } else {
+                    badge.style.color = '#10b981';
+                    badge.style.textShadow = '0 0 10px rgba(16, 185, 129, 0.5)';
+                }
+            }
+            
+            // AI Decision Log
+            if (window.SmartFlowCharts) {
+                const total = (this.northCars || 0) + (this.southCars || 0) + (this.eastCars || 0) + (this.westCars || 0);
+                const directions = [
+                    { name: 'North', val: this.northCars || 0 },
+                    { name: 'South', val: this.southCars || 0 },
+                    { name: 'East', val: this.eastCars || 0 },
+                    { name: 'West', val: this.westCars || 0 }
+                ].sort((a, b) => b.val - a.val);
+                const heaviest = directions[0];
+                
+                if (congestionLevel === 'High') {
+                    window.SmartFlowCharts.addDecisionLog(
+                        `⚠️ HIGH congestion! ${total} vehicles. Prioritizing ${heaviest.name} (${heaviest.val} cars). Extending green phase.`, 'warn'
+                    );
+                } else if (congestionLevel === 'Medium') {
+                    window.SmartFlowCharts.addDecisionLog(
+                        `🔄 Moderate traffic (${total} vehicles). ${heaviest.name} heaviest at ${heaviest.val}. Proportional timing active.`, 'info'
+                    );
+                } else {
+                    window.SmartFlowCharts.addDecisionLog(
+                        `✅ Smooth flow — ${total} vehicles. All directions balanced. Efficiency optimal.`, 'success'
+                    );
+                }
+            }
+            
             if (this.config.debugMode) {
                 const emoji = congestionLevel === 'High' ? '🔴' : congestionLevel === 'Medium' ? '🟡' : '🟢';
                 console.log(`${emoji} Congestion Level: ${congestionLevel}`);
