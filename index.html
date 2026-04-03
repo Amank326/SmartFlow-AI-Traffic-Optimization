@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartFlow AI — Adaptive Traffic Signal Optimization</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <span class="logo-icon">🚦</span>
+        <span class="logo-text">SmartFlow <span class="logo-ai">AI</span></span>
+      </div>
+      <span class="header-subtitle">Adaptive Traffic Signal Optimization</span>
+    </div>
+    <div class="header-right">
+      <div class="mode-badge" id="modeBadge">AI MODE</div>
+      <div class="status-indicator" id="statusIndicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Stopped</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <main class="main-layout">
+
+    <!-- Left Panel: Simulation -->
+    <section class="simulation-panel">
+      <div class="canvas-wrapper">
+        <canvas id="intersectionCanvas" width="560" height="560"></canvas>
+        <!-- Signal overlays are rendered on canvas -->
+      </div>
+
+      <!-- Controls -->
+      <div class="controls-bar">
+        <button class="btn btn-primary" id="btnStart">▶ Start</button>
+        <button class="btn btn-danger" id="btnStop" disabled>⏹ Stop</button>
+        <button class="btn btn-secondary" id="btnReset">↺ Reset</button>
+        <button class="btn btn-toggle" id="btnToggleMode">⚡ Static Mode</button>
+        <button class="btn btn-emergency" id="btnEmergency">🚨 Emergency</button>
+      </div>
+
+      <!-- Emergency Panel -->
+      <div class="emergency-panel hidden" id="emergencyPanel">
+        <p class="emergency-title">🚨 Select Emergency Lane</p>
+        <div class="emergency-lanes">
+          <button class="btn-lane" data-lane="north">⬆ North</button>
+          <button class="btn-lane" data-lane="south">⬇ South</button>
+          <button class="btn-lane" data-lane="east">➡ East</button>
+          <button class="btn-lane" data-lane="west">⬅ West</button>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="btnCancelEmergency">Cancel</button>
+      </div>
+    </section>
+
+    <!-- Right Panel: Dashboard -->
+    <aside class="dashboard-panel">
+
+      <!-- Lane Status Cards -->
+      <div class="dashboard-section">
+        <h3 class="section-title">🚗 Lane Status</h3>
+        <div class="lane-cards">
+          <div class="lane-card" id="card-north">
+            <div class="lane-direction">⬆ North</div>
+            <div class="lane-signal" id="signal-north">🔴</div>
+            <div class="lane-stats">
+              <div class="stat"><span class="stat-label">Waiting</span><span class="stat-value" id="waiting-north">0</span></div>
+              <div class="stat"><span class="stat-label">Passed</span><span class="stat-value" id="passed-north">0</span></div>
+              <div class="stat"><span class="stat-label">Green Time</span><span class="stat-value" id="green-north">—</span></div>
+            </div>
+            <div class="lane-bar-wrap"><div class="lane-bar" id="bar-north"></div></div>
+          </div>
+
+          <div class="lane-card" id="card-south">
+            <div class="lane-direction">⬇ South</div>
+            <div class="lane-signal" id="signal-south">🔴</div>
+            <div class="lane-stats">
+              <div class="stat"><span class="stat-label">Waiting</span><span class="stat-value" id="waiting-south">0</span></div>
+              <div class="stat"><span class="stat-label">Passed</span><span class="stat-value" id="passed-south">0</span></div>
+              <div class="stat"><span class="stat-label">Green Time</span><span class="stat-value" id="green-south">—</span></div>
+            </div>
+            <div class="lane-bar-wrap"><div class="lane-bar" id="bar-south"></div></div>
+          </div>
+
+          <div class="lane-card" id="card-east">
+            <div class="lane-direction">➡ East</div>
+            <div class="lane-signal" id="signal-east">🔴</div>
+            <div class="lane-stats">
+              <div class="stat"><span class="stat-label">Waiting</span><span class="stat-value" id="waiting-east">0</span></div>
+              <div class="stat"><span class="stat-label">Passed</span><span class="stat-value" id="passed-east">0</span></div>
+              <div class="stat"><span class="stat-label">Green Time</span><span class="stat-value" id="green-east">—</span></div>
+            </div>
+            <div class="lane-bar-wrap"><div class="lane-bar" id="bar-east"></div></div>
+          </div>
+
+          <div class="lane-card" id="card-west">
+            <div class="lane-direction">⬅ West</div>
+            <div class="lane-signal" id="signal-west">🔴</div>
+            <div class="lane-stats">
+              <div class="stat"><span class="stat-label">Waiting</span><span class="stat-value" id="waiting-west">0</span></div>
+              <div class="stat"><span class="stat-label">Passed</span><span class="stat-value" id="passed-west">0</span></div>
+              <div class="stat"><span class="stat-label">Green Time</span><span class="stat-value" id="green-west">—</span></div>
+            </div>
+            <div class="lane-bar-wrap"><div class="lane-bar" id="bar-west"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Metrics -->
+      <div class="dashboard-section">
+        <h3 class="section-title">📊 Performance Metrics</h3>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon">🚗</div>
+            <div class="metric-value" id="metricTotalProcessed">0</div>
+            <div class="metric-label">Cars Processed</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">⏱</div>
+            <div class="metric-value" id="metricAvgWait">0s</div>
+            <div class="metric-label">Avg Wait (AI)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">📉</div>
+            <div class="metric-value" id="metricStaticWait">0s</div>
+            <div class="metric-label">Avg Wait (Static)</div>
+          </div>
+          <div class="metric-card highlight">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-value" id="metricEfficiency">—</div>
+            <div class="metric-label">AI Efficiency</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase Timer -->
+      <div class="dashboard-section">
+        <h3 class="section-title">🔄 Current Phase</h3>
+        <div class="phase-info">
+          <div class="phase-active" id="phaseActive">—</div>
+          <div class="phase-timer-wrap">
+            <div class="phase-timer-bar-bg">
+              <div class="phase-timer-bar" id="phaseTimerBar"></div>
+            </div>
+            <span class="phase-timer-text" id="phaseTimerText">0s</span>
+          </div>
+          <div class="cycle-info">Cycle: <span id="cycleCount">0</span></div>
+        </div>
+      </div>
+
+      <!-- Chart: Waiting Time History -->
+      <div class="dashboard-section">
+        <h3 class="section-title">📈 Wait Time History</h3>
+        <canvas id="chartCanvas" width="300" height="120"></canvas>
+      </div>
+
+      <!-- Night Mode Indicator -->
+      <div class="dashboard-section">
+        <div class="night-mode-info" id="nightModeInfo">
+          <span class="night-icon">🌙</span>
+          <span id="nightModeText">Normal Traffic Mode</span>
+        </div>
+      </div>
+
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
